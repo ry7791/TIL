@@ -46,3 +46,80 @@
   - 브라우저의 뒤로 가기와 같은 사용자의 페이지 전환 요청을 자바스크립트에서 처리할 수 있다. 이때도 브라우저는 서버로 요청을 보내지 않아야 한다.
 
 - react-router-dom 중 exact속성값을 입력하면 그값이 완전히 일치해야 해당 컴포넌트가 렌더링된다. 만약 Home 컴포넌트 부분에서 exact 속성값을 입력하지 않았다면 Home 컴포넌트는 항상 렌더링된다.
+
+
+
+
+
+### <React.Fragment>
+
+- DOM 노드에 추가하지 않고 하위의 목록을 그룹화 할 수 있다.
+
+```react
+class Table extends React.Component {
+  render() {
+    return (
+      <table>
+        <tr>
+          <Columns />
+        </tr>
+      </table>
+    );
+  }
+}
+```
+
+```react
+class Columns extends React.Component {
+  render() {
+    return (
+      <div>
+        <td>Hello</td>
+        <td>World</td>
+      </div>
+    );
+  }
+}
+```
+
+결과
+
+html이 정상적으로 동작하기 위해 <td> 요소들을 반환해야 한다.
+
+```react
+<table>
+  <tr>
+    <div>
+      <td>Hello</td>
+      <td>World</td>
+    </div>
+  </tr>
+</table>
+```
+
+- Fragment 사용시
+
+```react
+class Columns extends React.Component {
+  render() {
+    return (
+      <React.Fragment>
+        <td>Hello</td>
+        <td>World</td>
+      </React.Fragment>
+    );
+  }
+}
+```
+
+결과
+
+```react
+<table>
+  <tr>
+    <td>Hello</td>
+    <td>World</td>
+  </tr>
+</table>
+```
+
