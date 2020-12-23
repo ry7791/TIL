@@ -123,3 +123,36 @@ class Columns extends React.Component {
 </table>
 ```
 
+
+
+### URL 쿼리
+
+- 리액트 라우터 v3 에서는 URL 쿼리를 해석해서 객체로 만들어주는 기능이 자체적으로 있었는데요, 쿼리를 파싱하는 방식은 여러가지가 있어서, 개발자들이 여러가지를 방식을 사용 할 수 있도록 이 기능을 더이상 내장하지 않습니다. 따라서 URL 쿼리를 해석하는것은 우리의 몫입니다. 쿼리를 해석하기 위해선, 라이브러리를 설치해주세요. 자체적으로 구현하는 방법도 있겠지만 라이브러리를 사용하는것이 훨씬 간편합니다.
+
+```
+yarn add query-string
+```
+
+
+
+```JS
+import React from 'react';
+import queryString from 'query-string';
+
+const About = ({location, match}) => {
+    const query = queryString.parse(location.search);
+
+    const detail = query.detail === 'true';
+
+    return (
+        <div>
+            <h2>About {match.params.name}</h2>
+            {detail && 'detail: blahblah'}
+        </div>
+    );
+};
+
+export default About;
+```
+
+- URL 쿼리를 만들 때 주의하실 점은, 받아오는 값들은 모두 문자열이라는 것 입니다. 알맞는 형태로 변환을 시킨다음에 비교를 하세요.
