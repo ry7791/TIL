@@ -156,3 +156,69 @@ export default About;
 ```
 
 - URL 쿼리를 만들 때 주의하실 점은, 받아오는 값들은 모두 문자열이라는 것 입니다. 알맞는 형태로 변환을 시킨다음에 비교를 하세요.
+
+
+
+
+
+### 라우트 props
+
+- location.pathname
+- match.path
+- match.url
+
+
+
+```js
+import React from 'react';
+import { Link, Route } from 'react-router-dom';
+import { Post } from 'pages'; 
+
+const Posts = ({match}) => {
+    return (
+        <div>
+           <h2>Post List</h2> 
+           <ul>
+                <li><Link to={`${match.url}/1`}>Post #1</Link></li>
+                <li><Link to={`${match.url}/2`}>Post #2</Link></li>
+                <li><Link to={`${match.url}/3`}>Post #3</Link></li>
+                <li><Link to={`${match.url}/4`}>Post #4</Link></li>
+           </ul>
+           <Route exact path={match.url} render={()=>(<h3>Please select any post</h3>)}/>
+           <Route path={`${match.url}/:id`} component={Post}/>
+        </div>
+    );
+};
+
+export default Posts;
+```
+
+url : localhost:3000/posts/1
+
+
+
+post list
+
+- location.pathname : /posts/1
+- match.path : /posts
+- match.url : /posts
+
+
+
+post #1
+
+- location.pathname : /posts/1
+- match.path : /posts/:id
+- match.url : /posts/1
+
+
+
+**location.pathname** 은 현재 브라우저상의 위치를 알려줍니다. 이 값은 어떤 라우트에서 렌더링하던 동일합니다.
+
+**match** 관련은 설정한 Route 와 직접적으로 관계된 값만 보여줍니다.
+
+- Posts 를 보여주는 라우트에선 :id 값을 설정하지 않았으니 path 와 url 이 둘다 /posts 입니다.
+- Post 를 보여주는 라우트에선 path 의 경우엔 라우트에서 설정한 path 값이 그대로 나타납니다. url 의 경우엔 :id 부분에 값이 들어간 상태로 나타납니다.
+
+https://velopert.com/3417
+
